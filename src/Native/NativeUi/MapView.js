@@ -20,40 +20,40 @@ const _ohanhi$elm_native_ui$Native_NativeUi_MapView = function () {
    * functions for  MapView
    */
   function refMap(el) {
-    maps[el.props.id] = el;
+    maps[el.props.mapId] = el;
   }
 
-  function animateToRegion(id, region, duration) {
+  function animateToRegion(mapId, region, duration) {
     return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
-      maps[id].animateToRegion(region, duration);
+      maps[mapId].animateToRegion(region, duration);
       return callback(_elm_lang$core$Native_Scheduler.succeed(unit));
     });
   }
 
-  function animateToCoordinate(id, coordinate, duration) {
+  function animateToCoordinate(mapId, coordinate, duration) {
     return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
-      maps[id].animateToCoordinate(coordinate, duration);
+      maps[mapId].animateToCoordinate(coordinate, duration);
       return callback(_elm_lang$core$Native_Scheduler.succeed(unit));
     });
   }
 
-  function fitToElements(id, animated) {
+  function fitToElements(mapId, animated) {
     return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
-      maps[id].fitToElements(animated);
+      maps[mapId].fitToElements(animated);
       return callback(_elm_lang$core$Native_Scheduler.succeed(unit));
     });
   }
 
-  function fitToSuppliedMarkers(id, markerIDs, animated) {
+  function fitToSuppliedMarkers(mapId, markerIDs, animated) {
     return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
-      maps[id].fitToSuppliedMarkers(markerIDs, animated);
+      maps[mapId].fitToSuppliedMarkers(markerIDs, animated);
       return callback(_elm_lang$core$Native_Scheduler.succeed(unit));
     });
   }
 
-  function fitToCoordinates(id, coordinates, options) {
+  function fitToCoordinates(mapId, coordinates, options) {
     return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
-      maps[id].fitToCoordinates(coordinates, options);
+      maps[mapId].fitToCoordinates(coordinates, options);
       return callback(_elm_lang$core$Native_Scheduler.succeed(unit));
     });
   }
@@ -62,19 +62,19 @@ const _ohanhi$elm_native_ui$Native_NativeUi_MapView = function () {
    * functions for MapView.Marker
    */
   function refMarker(el) {
-    markers[el.props.id] = el;
+    markers[el.props.markerId] = el;
   }
 
-  function showCallout(id) {
+  function showCallout(markerId) {
     return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
-      markers[id].showCallout();
+      markers[markerId].showCallout();
       return callback(_elm_lang$core$Native_Scheduler.succeed(unit));
     });
   }
 
-  function hideCallout(id) {
+  function hideCallout(markerId) {
     return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
-      markers[id].hideCallout();
+      markers[markerId].hideCallout();
       return callback(_elm_lang$core$Native_Scheduler.succeed(unit));
     });
   }

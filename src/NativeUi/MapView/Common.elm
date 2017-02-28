@@ -1,7 +1,6 @@
 module NativeUi.MapView.Common
     exposing
-        ( id
-        , LatLng
+        ( LatLng
         , decodeLatLng
         , encodeLatLng
         , Point
@@ -16,13 +15,6 @@ import Json.Decode as Decode
 import Json.Decode.Pipeline exposing (decode, required, optional, hardcoded)
 import Json.Encode as Encode exposing (Value, bool, int, list, object, string, float)
 import NativeUi exposing (Node, Property, on, property, renderProperty, customNode)
-
-
-{-| id
--}
-id : String -> Property msg
-id val =
-    property "id" (Encode.string val)
 
 
 {-| LatLng Model, decoder and encoder

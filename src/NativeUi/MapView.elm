@@ -47,6 +47,7 @@ module NativeUi.MapView
         , onMarkerDragEnd
           -- Methods
         , ref
+        , mapId
         , animateToRegion
         , animateToCoordinate
         , fitToElements
@@ -63,7 +64,7 @@ module NativeUi.MapView
    , toolbarEnabled, cacheEnabled, loadingEnabled, loadingIndicatorColor, loadingBackgroundColor
    , moveOnMarkerPress, EdgeInsets, legalLabelInsets, NativeEvent
    , onRegionChange, onRegionChangeComplete, onPress, onPanDrag, onLongPress, onMarkerPress, onMarkerSelect
-   , onMarkerDeselect, onCalloutPress, onMarkerDragStart, onMarkerDrag, onMarkerDragEnd, ref
+   , onMarkerDeselect, onCalloutPress, onMarkerDragStart, onMarkerDrag, onMarkerDragEnd, ref, mapId
    , animateToRegion, animateToCoordinate, fitToElements, fitToSuppliedMarkers, fitToCoordinates, EdgePadding
 -}
 
@@ -442,6 +443,12 @@ onMarkerDragEnd tagger =
 ref : Property msg
 ref =
     (Native.NativeUi.ref Native.NativeUi.MapView.refMap)
+
+
+{-| -}
+mapId : String -> Property msg
+mapId =
+    property "mapId" << Encode.string
 
 
 {-| -}
