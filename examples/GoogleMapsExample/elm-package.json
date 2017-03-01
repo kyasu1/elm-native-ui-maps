@@ -5,7 +5,8 @@
     "license": "BSD3",
     "source-directories": [
         "src",
-        "../elm-native-ui/src"
+        "elm-stuff-native/elm-native-ui/src",
+        "elm-stuff-native/elm-native-ui-maps/src"
     ],
     "exposed-modules": [],
     "native-modules": true,
