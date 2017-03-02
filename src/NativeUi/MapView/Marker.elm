@@ -36,7 +36,6 @@ module NativeUi.MapView.Marker
 import Task exposing (Task)
 import Json.Decode as Decode
 import Json.Encode as Encode exposing (Value, bool, int, list, object, string, float)
-import Native.NativeUi
 import NativeUi exposing (Node, Property, on, property, renderProperty, customNode)
 import NativeUi.MapView.Common exposing (LatLng, Point, Marker, encodeLatLng, encodePoint, decodeMarker)
 
@@ -184,7 +183,7 @@ onDragEnd tagger =
 {-| -}
 ref : Property msg
 ref =
-    (Native.NativeUi.ref Native.NativeUi.MapView.refMarker)
+    NativeUi.ref Native.NativeUi.MapView.refMarker
 
 
 {-| -}

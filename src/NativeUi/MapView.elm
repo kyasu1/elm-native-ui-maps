@@ -442,7 +442,7 @@ onMarkerDragEnd tagger =
 {-| -}
 ref : Property msg
 ref =
-    (Native.NativeUi.ref Native.NativeUi.MapView.refMap)
+    NativeUi.ref Native.NativeUi.MapView.refMap
 
 
 {-| -}
