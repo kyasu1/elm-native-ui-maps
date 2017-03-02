@@ -12,7 +12,19 @@
     "native-modules": true,
     "dependencies": {
         "NoRedInk/elm-decode-pipeline": "3.0.0 <= v < 4.0.0",
-        "elm-lang/core": "5.1.1 <= v < 6.0.0"
+        "elm-lang/core": "5.1.1 <= v < 6.0.0",
+        "ohanhi/elm-native-ui": "2.0.0 <= v < 3.0.0",
+        "kyasu1/elm-native-ui-maps": "1.0.0 <= v < 2.0.0"
+    },
+    "dependency-sources": {
+        "ohanhi/elm-native-ui": {
+          "url": "git@github.com:ohanhi/elm-native-ui",
+          "ref": "master"
+        },
+        "kyasu1/elm-native-ui-maps": {
+          "url": "git@github.com:kyasu1/elm-native-ui-maps",
+          "ref": "master"
+        }
     },
     "elm-version": "0.18.0 <= v < 0.19.0"
 }
