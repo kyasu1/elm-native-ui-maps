@@ -1,4 +1,4 @@
-const _ohanhi$elm_native_ui$Native_NativeUi_MapView = function () {
+const _kyasu1$elm_native_ui_maps$Native_NativeUi_MapView = function () {
   const map = require('react-native-maps');
   const unit = { ctor: "_Tuple0" };
 
