@@ -9,7 +9,7 @@ const _kyasu1$elm_native_ui_maps$Native_NativeUi_MapView = function () {
    * The imperaive methods must be called on an instance.
    * By calling the refMap and refMarker function through ref property,
    * the reference to the component will be stored here.
-   * To distinguish them each other wee supply an `id` property to the node.
+   * To distinguish them each other we supply an `id` property to the node.
    *
    * There is no concern about garbage collection things.
    * What if an app try to repeat adding and removing 1000 markers ?
