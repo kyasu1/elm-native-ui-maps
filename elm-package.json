@@ -1,31 +1,31 @@
 {
-    "version": "1.0.3",
-    "summary": "Elm wrapper for react-native-maps",
-    "repository": "https://github.com/kyasu1/elm-native-ui-maps.git",
-    "license": "BSD3",
-    "source-directories": [
-        "src"
-    ],
-    "exposed-modules": [
-        "NativeUi.MapView",
-        "NativeUi.MapView.Common",
-        "NativeUi.MapView.Marker",
-        "NativeUi.MapView.Callout",
-        "NativeUi.MapView.Circle",
-        "NativeUi.MapView.Polygon",
-        "NativeUi.MapView.Polyline"
-    ],
-    "native-modules": true,
-    "dependencies": {
-        "NoRedInk/elm-decode-pipeline": "3.0.0 <= v < 4.0.0",
-        "elm-lang/core": "5.1.1 <= v < 6.0.0",
-        "ohanhi/elm-native-ui": "2.0.0 <= v < 3.0.0"
-     },
-    "dependency-sources": {
-        "ohanhi/elm-native-ui": {
-          "url": "git@github.com:ohanhi/elm-native-ui",
-          "ref": "master"
-        }
-    },
-    "elm-version": "0.18.0 <= v < 0.19.0"
+	"version": "1.0.4",
+	"summary": "Elm wrapper for react-native-maps",
+	"repository": "https://github.com/kyasu1/elm-native-ui-maps.git",
+	"license": "BSD3",
+	"source-directories": [
+		"src"
+	],
+	"exposed-modules": [
+		"NativeUi.MapView",
+		"NativeUi.MapView.Common",
+		"NativeUi.MapView.Marker",
+		"NativeUi.MapView.Callout",
+		"NativeUi.MapView.Circle",
+		"NativeUi.MapView.Polygon",
+		"NativeUi.MapView.Polyline"
+	],
+	"native-modules": true,
+	"dependencies": {
+		"NoRedInk/elm-decode-pipeline": "3.0.0 <= v < 4.0.0",
+		"elm-lang/core": "5.1.1 <= v < 6.0.0",
+		"kyasu1/elm-native-ui": "2.0.0 <= v < 3.0.0"
+	},
+	"dependency-sources": {
+		"kyasu1/elm-native-ui": {
+			"url": "git@github.com:kyasu1/elm-native-ui",
+			"ref": "exprimental"
+		}
+	},
+	"elm-version": "0.18.0 <= v < 0.19.0"
 }
