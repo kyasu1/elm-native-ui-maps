@@ -1,5 +1,5 @@
 {
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"summary": "Elm wrapper for react-native-maps",
 	"repository": "https://github.com/kyasu1/elm-native-ui-maps.git",
 	"license": "BSD3",
@@ -19,12 +19,12 @@
 	"dependencies": {
 		"NoRedInk/elm-decode-pipeline": "3.0.0 <= v < 4.0.0",
 		"elm-lang/core": "5.1.1 <= v < 6.0.0",
-		"kyasu1/elm-native-ui": "2.0.0 <= v < 3.0.0"
+		"ohanhi/elm-native-ui": "2.0.0 <= v < 3.0.0"
 	},
 	"dependency-sources": {
-		"kyasu1/elm-native-ui": {
-			"url": "git@github.com:kyasu1/elm-native-ui",
-			"ref": "exprimental"
+		"ohanhi/elm-native-ui": {
+			"url": "git@github.com:ohanhi/elm-native-ui",
+			"ref": "master"
 		}
 	},
 	"elm-version": "0.18.0 <= v < 0.19.0"
