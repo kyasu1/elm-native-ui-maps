@@ -26,14 +26,14 @@ const _kyasu1$elm_native_ui_maps$Native_NativeUi_MapView = function () {
   function animateToRegion(mapId, region, duration) {
     return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
       maps[mapId].animateToRegion(region, duration);
-      return callback(_elm_lang$core$Native_Scheduler.succeed(unit));
+      return callback(_elm_lang$core$Native_Scheduler.succeed(region));
     });
   }
 
   function animateToCoordinate(mapId, coordinate, duration) {
     return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
       maps[mapId].animateToCoordinate(coordinate, duration);
-      return callback(_elm_lang$core$Native_Scheduler.succeed(unit));
+      return callback(_elm_lang$core$Native_Scheduler.succeed(coordinate));
     });
   }
 

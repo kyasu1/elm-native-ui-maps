@@ -1,11 +1,19 @@
 module NativeUi.MapView
     exposing
         ( view
-          -- Props
+          -- Basic types and props
+        , Region
+        , decodeRegion
+        , LatLng
+        , decodeLatLng
+        , encodeLatLng
+        , Point
+        , decodePoint
+        , encodePoint
+          -- Properties
         , provider
         , Provider(..)
         , region
-        , Region
         , initialRegion
         , liteMode
         , MapType(..)
@@ -33,6 +41,7 @@ module NativeUi.MapView
         , legalLabelInsets
           -- Events
         , NativeEvent
+        , decodeNativeEvent
         , onRegionChange
         , onRegionChangeComplete
         , onPress
@@ -57,15 +66,32 @@ module NativeUi.MapView
         )
 
 {-|
+# Elements
 @docs view
-   , provider, Provider, region, Region, initialRegion, liteMode, MapType, mapType, showsUserLocation
-   , followsUserLocation, showsMyLocationButton, showsPointsOfInterest, showsCompass, showsScale
-   , showsBuildings, showsTraffic, showsIndoors, zoomEnabled, rotateEnabled, scrollEnabled, pitchEnabled
-   , toolbarEnabled, cacheEnabled, loadingEnabled, loadingIndicatorColor, loadingBackgroundColor
-   , moveOnMarkerPress, EdgeInsets, legalLabelInsets, NativeEvent
-   , onRegionChange, onRegionChangeComplete, onPress, onPanDrag, onLongPress, onMarkerPress, onMarkerSelect
-   , onMarkerDeselect, onCalloutPress, onMarkerDragStart, onMarkerDrag, onMarkerDragEnd, ref, mapId
-   , animateToRegion, animateToCoordinate, fitToElements, fitToSuppliedMarkers, fitToCoordinates, EdgePadding
+
+# Basic types and props
+@docs Region, decodeRegion,
+      LatLng, decodeLatLng, encodeLatLng,
+      Point, decodePoint, encodePoint
+
+# Properties
+@docs provider, Provider, region, initialRegion, liteMode, MapType, mapType,
+      showsUserLocation, followsUserLocation, showsMyLocationButton,
+      showsPointsOfInterest, showsCompass, showsScale, showsBuildings,
+      showsTraffic, showsIndoors, zoomEnabled, rotateEnabled, scrollEnabled,
+      pitchEnabled, toolbarEnabled, cacheEnabled, loadingEnabled,
+      loadingIndicatorColor, loadingBackgroundColor, moveOnMarkerPress,
+      EdgeInsets, legalLabelInsets
+
+# Events
+@docs NativeEvent, decodeNativeEvent, onRegionChange, onRegionChangeComplete,
+      onPress, onPanDrag, onLongPress, onMarkerPress, onMarkerSelect,
+      onMarkerDeselect, onCalloutPress, onMarkerDragStart, onMarkerDrag,
+      onMarkerDragEnd
+
+# Methods
+@docs ref, mapId, animateToRegion, animateToCoordinate, fitToElements,
+      fitToSuppliedMarkers, fitToCoordinates, EdgePadding
 -}
 
 import Task exposing (Task)
@@ -74,7 +100,6 @@ import Json.Decode.Pipeline exposing (decode, required, optional, hardcoded)
 import Json.Encode as Encode exposing (Value, bool, int, list, object, string, float)
 import Native.NativeUi.MapView
 import NativeUi exposing (Node, Property, on, property, renderProperty, customNode)
-import NativeUi.MapView.Common exposing (..)
 
 
 {-| -}
@@ -93,6 +118,7 @@ type Provider
     | Google
 
 
+{-| -}
 provider : Provider -> Property msg
 provider val =
     let
@@ -117,6 +143,7 @@ type alias Region =
     }
 
 
+{-| -}
 encodeRegion : Region -> Encode.Value
 encodeRegion region =
     Encode.object
@@ -127,6 +154,7 @@ encodeRegion region =
         ]
 
 
+{-| -}
 decodeRegion : Decode.Decoder Region
 decodeRegion =
     Decode.map4 Region
@@ -136,6 +164,7 @@ decodeRegion =
         (Decode.field "longitudeDelta" Decode.float)
 
 
+{-| -}
 region : Region -> Property msg
 region =
     property "region" << encodeRegion
@@ -145,6 +174,56 @@ region =
 initialRegion : Region -> Property msg
 initialRegion =
     property "initialRegion" << encodeRegion
+
+
+{-| LatLng Model, decoder and encoder
+-}
+type alias LatLng =
+    { latitude : Float
+    , longitude : Float
+    }
+
+
+{-| -}
+decodeLatLng : Decode.Decoder LatLng
+decodeLatLng =
+    decode LatLng
+        |> required "latitude" Decode.float
+        |> required "longitude" Decode.float
+
+
+{-| -}
+encodeLatLng : LatLng -> Encode.Value
+encodeLatLng latLng =
+    Encode.object
+        [ ( "latitude", Encode.float latLng.latitude )
+        , ( "longitude", Encode.float latLng.longitude )
+        ]
+
+
+{-| Point Model, decoder and encoder
+-}
+type alias Point =
+    { x : Float
+    , y : Float
+    }
+
+
+{-| -}
+decodePoint : Decode.Decoder Point
+decodePoint =
+    decode Point
+        |> required "x" Decode.float
+        |> required "y" Decode.float
+
+
+{-| -}
+encodePoint : Point -> Encode.Value
+encodePoint point =
+    Encode.object
+        [ ( "x", Encode.float point.x )
+        , ( "y", Encode.float point.y )
+        ]
 
 
 {-| -}
@@ -178,6 +257,7 @@ mapTypeToString mapType =
             "terrain"
 
 
+{-| -}
 mapType : MapType -> Property msg
 mapType =
     property "mapType" << Encode.string << mapTypeToString
@@ -317,6 +397,7 @@ encodeEdgeInsets edgeInsets =
         ]
 
 
+{-| -}
 legalLabelInsets : EdgeInsets -> Property msg
 legalLabelInsets =
     property "legalLabelInsets" << encodeEdgeInsets
@@ -354,6 +435,7 @@ type alias NativeEvent =
     }
 
 
+{-| -}
 decodeNativeEvent : Decode.Decoder NativeEvent
 decodeNativeEvent =
     decode NativeEvent
@@ -452,14 +534,14 @@ mapId =
 
 
 {-| -}
-animateToRegion : String -> Region -> Float -> Task Never String
+animateToRegion : String -> Region -> Float -> Task Never Region
 animateToRegion id region duration =
     Native.NativeUi.MapView.animateToRegion (Encode.string id) (encodeRegion region) (Encode.float duration)
 
 
 {-| This is not working on iOS with google maps
 -}
-animateToCoordinate : String -> LatLng -> Float -> Task Never String
+animateToCoordinate : String -> LatLng -> Float -> Task Never LatLng
 animateToCoordinate id latLng duration =
     Native.NativeUi.MapView.animateToCoordinate (Encode.string id) (encodeLatLng latLng) (Encode.float duration)
 

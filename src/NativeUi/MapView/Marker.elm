@@ -27,22 +27,31 @@ module NativeUi.MapView.Marker
         )
 
 {-|
-@docs view,
-      title, description, image, pinColor, coordinate, centerOffset, calloutOffset, anchor, calloutAnchor, flat, identifier, rotation, draggable,
-      onSelect, onDeselect, onCalloutPress, onDragStart, onDrag, onDragEnd,
-      ref, markerId, showCallout, hideCallout
+# Elements
+@docs view
+
+# Properties
+@docs title, description, image, pinColor, coordinate, centerOffset,
+      calloutOffset, anchor, calloutAnchor, flat, identifier, rotation, draggable
+
+# Events
+@docs onSelect, onDeselect, onCalloutPress, onDragStart, onDrag, onDragEnd
+
+# Methods
+@docs ref, markerId, showCallout, hideCallout
 -}
 
 import Task exposing (Task)
 import Json.Decode as Decode
 import Json.Encode as Encode exposing (Value, bool, int, list, object, string, float)
 import NativeUi exposing (Node, Property, on, property, renderProperty, customNode)
-import NativeUi.MapView.Common exposing (LatLng, Point, Marker, encodeLatLng, encodePoint, decodeMarker)
+import NativeUi.MapView exposing (LatLng, Point, NativeEvent, encodeLatLng, encodePoint, decodeNativeEvent)
 
 
 -- View
 
 
+{-| -}
 view : List (Property msg) -> List (Node msg) -> Node msg
 view =
     customNode "MapView.Marker" Native.NativeUi.MapView.marker
@@ -135,21 +144,21 @@ draggable =
 
 
 {-| -}
-onPress : (Marker -> msg) -> Property msg
+onPress : (NativeEvent -> msg) -> Property msg
 onPress tagger =
-    on "Press" (Decode.map tagger decodeMarker)
+    on "Press" (Decode.map tagger decodeNativeEvent)
 
 
 {-| -}
-onSelect : (Marker -> msg) -> Property msg
+onSelect : (NativeEvent -> msg) -> Property msg
 onSelect tagger =
-    on "Select" (Decode.map tagger decodeMarker)
+    on "Select" (Decode.map tagger decodeNativeEvent)
 
 
 {-| -}
-onDeselect : (Marker -> msg) -> Property msg
+onDeselect : (NativeEvent -> msg) -> Property msg
 onDeselect tagger =
-    on "Deselect" (Decode.map tagger decodeMarker)
+    on "Deselect" (Decode.map tagger decodeNativeEvent)
 
 
 {-| -}
@@ -159,21 +168,21 @@ onCalloutPress tagger =
 
 
 {-| -}
-onDragStart : (Marker -> msg) -> Property msg
+onDragStart : (NativeEvent -> msg) -> Property msg
 onDragStart tagger =
-    on "DragStart" (Decode.map tagger decodeMarker)
+    on "DragStart" (Decode.map tagger decodeNativeEvent)
 
 
 {-| -}
-onDrag : (Marker -> msg) -> Property msg
+onDrag : (NativeEvent -> msg) -> Property msg
 onDrag tagger =
-    on "Drag" (Decode.map tagger decodeMarker)
+    on "Drag" (Decode.map tagger decodeNativeEvent)
 
 
 {-| -}
-onDragEnd : (Marker -> msg) -> Property msg
+onDragEnd : (NativeEvent -> msg) -> Property msg
 onDragEnd tagger =
-    on "DragEnd" (Decode.map tagger decodeMarker)
+    on "DragEnd" (Decode.map tagger decodeNativeEvent)
 
 
 

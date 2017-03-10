@@ -17,13 +17,14 @@ module NativeUi.MapView.Circle
 
 {-|
 @docs view
-    , center , radius , strokeWidth , strokeColor , fillColor , zIndex , lineCap
-    , lineJoin , miterLimit , geodesic , lineDashPhase , lineDashPattern
+
+@docs center, radius, strokeWidth, strokeColor, fillColor, zIndex, lineCap,
+      lineJoin, miterLimit, geodesic, lineDashPhase, lineDashPattern
 -}
 
 import Json.Encode as Encode exposing (Value, bool, int, list, object, string, float)
 import NativeUi exposing (Node, Property, on, property, renderProperty, customNode)
-import NativeUi.MapView.Common exposing (LatLng, encodeLatLng)
+import NativeUi.MapView exposing (LatLng, encodeLatLng)
 
 
 -- View

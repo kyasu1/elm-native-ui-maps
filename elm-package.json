@@ -1,5 +1,5 @@
 {
-	"version": "1.0.7",
+	"version": "1.0.8",
 	"summary": "Elm wrapper for react-native-maps",
 	"repository": "https://github.com/kyasu1/elm-native-ui-maps.git",
 	"license": "BSD3",
@@ -8,7 +8,6 @@
 	],
 	"exposed-modules": [
 		"NativeUi.MapView",
-		"NativeUi.MapView.Common",
 		"NativeUi.MapView.Marker",
 		"NativeUi.MapView.Callout",
 		"NativeUi.MapView.Circle",

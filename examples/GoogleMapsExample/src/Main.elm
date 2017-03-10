@@ -1,13 +1,14 @@
 module Main exposing (..)
 
 import Task exposing (Task)
+import Json.Decode as Decode
+import Json.Encode as Encode
 import NativeUi as Ui exposing (Node)
 import NativeUi.Style as Style
 import NativeUi.Elements as Elements exposing (..)
 import NativeUi.Properties exposing (..)
 import NativeUi.Events as Events
-import NativeUi.MapView as MapView
-import NativeUi.MapView.Common exposing (LatLng)
+import NativeUi.MapView as MapView exposing (LatLng)
 import NativeUi.MapView.Marker as Marker
 import NativeUi.Animatable as Animatable
 import Native.Images
@@ -101,13 +102,17 @@ mapId =
 type Msg
     = ListPress Station
     | MarkerPress Station
-    | MoveTo String
+    | MoveTo MapView.Region
     | ShowCallout String
+    | OnRegionChange MapView.Region
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case Debug.log "update" msg of
+    case msg of
+        OnRegionChange region ->
+            { model | region = region } ! []
+
         ListPress station ->
             let
                 region =
@@ -120,9 +125,7 @@ update msg model =
                     }
             in
                 { model
-                    | current =
-                        Just station
-                    , region = newRegion
+                    | current = Just station
                 }
                     ! [ Cmd.batch
                             [ moveTo newRegion
@@ -141,7 +144,7 @@ update msg model =
                         , longitude = station.latLng.longitude
                     }
             in
-                { model | region = newRegion } ! [ moveTo newRegion ]
+                model ! [ moveTo newRegion ]
 
         MoveTo _ ->
             model ! []
@@ -152,7 +155,7 @@ update msg model =
 
 moveTo : MapView.Region -> Cmd Msg
 moveTo region =
-    Task.perform MoveTo (MapView.animateToRegion mapId region 500)
+    Task.perform MoveTo (MapView.animateToRegion mapId region 1000)
 
 
 showCallout : String -> Cmd Msg
@@ -175,6 +178,7 @@ view model =
             , MapView.provider MapView.Google
             , MapView.showsUserLocation True
             , MapView.region model.region
+            , MapView.onRegionChangeComplete OnRegionChange
             ]
             (List.map (markerView model.current) model.stations)
         , Elements.scrollView [ Ui.style cssList ] (List.map listView model.stations)
@@ -234,9 +238,15 @@ stationSelected current station =
 
 listView : Station -> Node Msg
 listView station =
-    Elements.touchableOpacity
-        [ Events.onPress (ListPress station) ]
-        [ Elements.text [] [ Ui.string station.name ]
+    Elements.touchableHighlight
+        [ Events.onPress (ListPress station)
+        , Ui.style cssListItem
+        , underlayColor "#CCCCCC"
+        ]
+        [ Elements.text
+            [ Ui.style cssListItemText
+            ]
+            [ Ui.string station.name ]
         ]
 
 
@@ -266,6 +276,19 @@ cssList =
     ]
 
 
+cssListItem : List Style.Style
+cssListItem =
+    [ Style.height 30
+    , Style.padding 5
+    ]
+
+
+cssListItemText : List Style.Style
+cssListItemText =
+    [ Style.fontSize 20
+    ]
+
+
 cssMarker : Float -> List Style.Style
 cssMarker zIndex =
     [ Style.zIndex zIndex
@@ -278,3 +301,8 @@ cssMarkerImage =
     , Style.width 40
     , Style.resizeMode "contain"
     ]
+
+
+underlayColor : String -> Ui.Property msg
+underlayColor val =
+    Ui.property "underlayColor" (Encode.string val)

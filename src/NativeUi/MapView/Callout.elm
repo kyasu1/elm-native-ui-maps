@@ -1,4 +1,4 @@
-module NativeUi.MapView.Callout exposing (view, tooltip)
+module NativeUi.MapView.Callout exposing (view, tooltip, onPress)
 
 {-|
 @docs view, tooltip, onPress
@@ -12,6 +12,7 @@ import NativeUi exposing (Node, Property, on, property, renderProperty, customNo
 -- View
 
 
+{-| -}
 view : List (Property msg) -> List (Node msg) -> Node msg
 view =
     customNode "MapView.Callout" Native.NativeUi.MapView.callout
@@ -34,4 +35,4 @@ tooltip val =
 {-| -}
 onPress : msg -> Property msg
 onPress tagger =
-    on "Pres" (Decode.succeed tagger)
+    on "Press" (Decode.succeed tagger)
