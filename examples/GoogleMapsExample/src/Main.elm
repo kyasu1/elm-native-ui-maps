@@ -9,6 +9,8 @@ import NativeUi.Events as Events
 import NativeUi.MapView as MapView
 import NativeUi.MapView.Common exposing (LatLng)
 import NativeUi.MapView.Marker as Marker
+import NativeUi.Animatable as Animatable
+import Native.Images
 
 
 -- Program
@@ -174,23 +176,60 @@ view model =
             , MapView.showsUserLocation True
             , MapView.region model.region
             ]
-            (List.map markerView model.stations)
+            (List.map (markerView model.current) model.stations)
         , Elements.scrollView [ Ui.style cssList ] (List.map listView model.stations)
         ]
 
 
-markerView : Station -> Node Msg
-markerView station =
-    Marker.view
-        [ Marker.coordinate station.latLng
-        , Marker.ref
-        , Marker.identifier station.id
-        , Marker.markerId station.id
-        , Events.onPress (MarkerPress station)
-        , Marker.title station.name
-        , Marker.description (toString station.latLng)
-        ]
-        []
+markerView : Maybe Station -> Station -> Node Msg
+markerView current station =
+    let
+        ( icon, zIndex ) =
+            if stationSelected current station == True then
+                ( Animatable.image
+                    [ Ui.style cssMarkerImage
+                    , source Native.Images.iconJr
+                    , Animatable.animation Animatable.Swing
+                    , Animatable.easing Animatable.EaseOut
+                    , Animatable.iterationCount (Animatable.Finite 5)
+                    , Animatable.direction Animatable.Alternate
+                    ]
+                    []
+                , 100
+                )
+            else
+                ( Elements.image
+                    [ Ui.style cssMarkerImage
+                    , source Native.Images.iconJr
+                    ]
+                    []
+                , 5
+                )
+    in
+        Marker.view
+            [ Marker.coordinate station.latLng
+            , Marker.ref
+            , Marker.identifier station.id
+            , Marker.markerId station.id
+            , Events.onPress (MarkerPress station)
+            , Marker.title station.name
+            , Marker.description (toString station.latLng)
+            , Ui.style (cssMarker zIndex)
+            ]
+            [ icon ]
+
+
+stationSelected : Maybe Station -> Station -> Bool
+stationSelected current station =
+    case current of
+        Just station_ ->
+            if station_.id == station.id then
+                True
+            else
+                False
+
+        Nothing ->
+            False
 
 
 listView : Station -> Node Msg
@@ -224,4 +263,18 @@ cssList : List Style.Style
 cssList =
     [ Style.height 300
     , Style.padding 10
+    ]
+
+
+cssMarker : Float -> List Style.Style
+cssMarker zIndex =
+    [ Style.zIndex zIndex
+    ]
+
+
+cssMarkerImage : List Style.Style
+cssMarkerImage =
+    [ Style.height 40
+    , Style.width 40
+    , Style.resizeMode "contain"
     ]
