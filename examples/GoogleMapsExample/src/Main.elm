@@ -278,8 +278,10 @@ cssList =
 
 cssListItem : List Style.Style
 cssListItem =
-    [ Style.height 30
-    , Style.padding 5
+    [ Style.height 36
+    , Style.padding 8
+    , Style.borderBottomWidth 1
+    , Style.borderBottomColor "#CCCCCC"
     ]
 
 
