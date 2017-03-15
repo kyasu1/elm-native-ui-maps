@@ -47,7 +47,10 @@ Start the app.
 ```bash
 $ react-native run-ios
 ```
+or
+```bash
+$ react-native run-android
+```
 
 # Limitations
-- Tested on iOS devices only, should work on Android devices too.
 - Some features are supported only specific platform only, please consult with the original documentations and issues.
