@@ -21,7 +21,6 @@ module NativeUi.MapView.Marker
         , onDrag
         , onDragEnd
         , ref
-        , markerId
         , showCallout
         , hideCallout
         )
@@ -38,7 +37,7 @@ module NativeUi.MapView.Marker
 @docs onSelect, onDeselect, onCalloutPress, onDragStart, onDrag, onDragEnd
 
 # Methods
-@docs ref, markerId, showCallout, hideCallout
+@docs ref, showCallout, hideCallout
 -}
 
 import Task exposing (Task)
@@ -193,12 +192,6 @@ onDragEnd tagger =
 ref : Property msg
 ref =
     NativeUi.ref Native.NativeUi.MapView.refMarker
-
-
-{-| -}
-markerId : String -> Property msg
-markerId =
-    property "markerId" << Encode.string
 
 
 {-| -}
