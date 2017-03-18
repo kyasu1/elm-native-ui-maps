@@ -14,6 +14,7 @@ module NativeUi.MapView.Marker
         , identifier
         , rotation
         , draggable
+        , onPress
         , onSelect
         , onDeselect
         , onCalloutPress
@@ -34,7 +35,7 @@ module NativeUi.MapView.Marker
       calloutOffset, anchor, calloutAnchor, flat, identifier, rotation, draggable
 
 # Events
-@docs onSelect, onDeselect, onCalloutPress, onDragStart, onDrag, onDragEnd
+@docs onPress, onSelect, onDeselect, onCalloutPress, onDragStart, onDrag, onDragEnd
 
 # Methods
 @docs ref, showCallout, hideCallout
