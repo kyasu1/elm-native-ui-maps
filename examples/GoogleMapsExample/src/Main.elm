@@ -174,7 +174,7 @@ view model =
         [ MapView.view
             [ Ui.style cssMap
             , MapView.ref
-            , MapView.mapId mapId
+            , MapView.identifier mapId
             , MapView.provider MapView.Google
             , MapView.showsUserLocation True
             , MapView.region model.region
@@ -214,7 +214,6 @@ markerView current station =
             [ Marker.coordinate station.latLng
             , Marker.ref
             , Marker.identifier station.id
-            , Marker.markerId station.id
             , Events.onPress (MarkerPress station)
             , Marker.title station.name
             , Marker.description (toString station.latLng)

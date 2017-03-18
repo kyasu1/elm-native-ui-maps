@@ -20,7 +20,7 @@ const _kyasu1$elm_native_ui_maps$Native_NativeUi_MapView = function () {
    * functions for  MapView
    */
   function refMap(el) {
-    maps[el.props.mapId] = el;
+    maps[el.props.identifier] = el;
   }
 
   function animateToRegion(mapId, region, duration) {
