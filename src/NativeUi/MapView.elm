@@ -56,7 +56,7 @@ module NativeUi.MapView
         , onMarkerDragEnd
           -- Methods
         , ref
-        , mapId
+        , identifier
         , animateToRegion
         , animateToCoordinate
         , fitToElements
@@ -90,7 +90,7 @@ module NativeUi.MapView
       onMarkerDragEnd
 
 # Methods
-@docs ref, mapId, animateToRegion, animateToCoordinate, fitToElements,
+@docs ref, identifier, animateToRegion, animateToCoordinate, fitToElements,
       fitToSuppliedMarkers, fitToCoordinates, EdgePadding
 -}
 
@@ -528,9 +528,9 @@ ref =
 
 
 {-| -}
-mapId : String -> Property msg
-mapId =
-    property "mapId" << Encode.string
+identifier : String -> Property msg
+identifier =
+    property "identifier" << Encode.string
 
 
 {-| -}
@@ -549,22 +549,22 @@ animateToCoordinate id latLng duration =
 {-| Compute a boundary including all elements then resize the map to fit to contain them.
 -}
 fitToElements : String -> Bool -> Task Never String
-fitToElements mapId animated =
-    Native.NativeUi.MapView.fitToElements (Encode.string mapId) (Encode.bool animated)
+fitToElements identifier animated =
+    Native.NativeUi.MapView.fitToElements (Encode.string identifier) (Encode.bool animated)
 
 
 {-| The markerID used here is set by the Marker.identifier property
 -}
 fitToSuppliedMarkers : String -> List String -> Bool -> Task Never String
-fitToSuppliedMarkers mapId markerIDs animated =
-    Native.NativeUi.MapView.fitToSuppliedMarkers (Encode.string mapId) (markerIDs |> List.map Encode.string |> Encode.list) (Encode.bool animated)
+fitToSuppliedMarkers identifier markerIDs animated =
+    Native.NativeUi.MapView.fitToSuppliedMarkers (Encode.string identifier) (markerIDs |> List.map Encode.string |> Encode.list) (Encode.bool animated)
 
 
 {-| -}
 fitToCoordinates : String -> List LatLng -> EdgePadding -> Bool -> Task Never String
-fitToCoordinates mapId coordinates edgePadding animated =
+fitToCoordinates identifier coordinates edgePadding animated =
     Native.NativeUi.MapView.fitToCoordinates
-        (Encode.string mapId)
+        (Encode.string identifier)
         (coordinates |> List.map encodeLatLng |> Encode.list)
         (Encode.object
             [ ( "edgePadding", encodeEdgePadding edgePadding )
