@@ -62,7 +62,7 @@ const _kyasu1$elm_native_ui_maps$Native_NativeUi_MapView = function () {
    * functions for MapView.Marker
    */
   function refMarker(el) {
-    markers[el.props.markerId] = el;
+    markers[el.props.identifier] = el;
   }
 
   function showCallout(markerId) {
